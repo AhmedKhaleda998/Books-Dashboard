@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\BookController;
+use App\Models\Book;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,34 +15,16 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+/// method -> http request -> get , post
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/books', function () {
-    $books = [
-        [
-            'title' => 'Sample Book 1',
-            'author' => 'John Doe',
-            'genre' => 'Fiction',
-            'publication_year' => 2020,
-        ],
-        [
-            'title' => 'Sample Book 2',
-            'author' => 'Jane Smith',
-            'genre' => 'Mystery',
-            'publication_year' => 2018,
-        ],
-    ];
-    $page = "Books";
-    return view('books', [
-        "page" => $page,
-        "books" => $books
-    ]);
-});
-
-Route::get('create-book', function () {
-    $page = "create book";
-    return view('create-book', ['page' => $page]);
-});
+// create route /profile
+Route::get('books', [BookController::class, 'index'])->name('books.index');
+Route::get('books/create', [BookController::class, 'create'])->name('books.create');
+Route::post('books', [BookController::class, 'store'])->name('books.store');
+Route::get('books/{book}', [BookController::class, 'show'])->name('books.show');
+Route::get('/books/{book}/edit', [BookController::class, 'edit'])->name('books.edit');
+Route::put('/books/{book}', [BookController::class, 'update'])->name('books.update');
+Route::delete('books/{book}', [BookController::class, 'destroy'])->name('books.destroy');

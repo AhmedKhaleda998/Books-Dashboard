@@ -19,7 +19,7 @@ class BookFactory extends Factory
         return [
             "title" => fake()->sentence($nbWords = 4, $variableNbWords = true),
             "price" => fake()->randomDigit(),
-            "des" => fake()->text(),
+            "description" => fake()->text(),
             "pic" => fake()->imageUrl()
         ];
     }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{ $page }}</title>
+    <title>Edit Book</title>
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body>
@@ -26,21 +26,22 @@
         </div>
     </nav>
     <div class="container mt-4 p-4" >
-        <h1 class="mb-4">Add New Book</h1>
+        <h1 class="mb-4">Edit Book</h1>
 
-        <form method="POST" action="{{ route('books.store') }}">
+        <form action="{{ route('books.update', $book) }}" method="POST">
             @csrf
+            @method('PUT')
             <div class="form-group">
                 <label for="exampleInputEmail1">Title</label>
-                <input type="text" class="form-control" name="title" placeholder="Enter Title">
+                <input type="text" class="form-control" name="title" value="{{ $book->title }}">
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Price</label>
-                <input type="number" class="form-control" name="price" placeholder="Price">
+                <input type="number" class="form-control" name="price" value="{{ $book->price }}">
             </div>
             <div class="form-group">
                 <label for="exampleInputText">Description</label>
-                <textarea class="form-control" name="description" name="description" cols="30" rows="10"></textarea>
+                <textarea class="form-control" name="description" name="description" cols="30" rows="10" >{{ $book->title }}</textarea>
             </div>
             <button type="submit" class="btn btn-primary mt-4">Submit</button>
         </form>
