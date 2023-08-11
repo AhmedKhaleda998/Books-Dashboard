@@ -1,36 +1,34 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{ $page }}</title>
+@extends('layouts.app')
+@section('content')
+
+<!doctype html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{ config('app.name', 'Laravel') }}</title>
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <style>
         .custom-card {
             max-width: 400px;
             height: 300px;
         }
+        .img{
+            max-width: 350px;
+            text-align: center;
+        }
     </style>
 </head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-                <a class="navbar-brand" href="/books">My Library</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('books.index') }}">Books</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('books.create') }}">Add Books</a>
-                        </li>
 
-                    </ul>
-                </div>
-            </div>
-        </nav>
+
     @isset($books)
     <div class="container my-4 p-4">
         <h1 class="mb-4">Book List</h1>
@@ -38,7 +36,7 @@
         <div class="row row-cols-1 row-cols-md-3 g-4">
             @foreach ($books as $book)
                 <div class="col">
-                    <div class="card custom-card">
+                    <div class="custom-card card">
                         <div class="card-body">
                             <h5 class="card-title h4 bold"><strong>{{ $book['title'] }}</strong></h5>
                             <p class="card-text"><strong>Price:</strong> ${{ $book['price'] }}</p>
@@ -74,5 +72,4 @@
     @else
         <p>No Books</p>
     @endif
-</body>
-</html>
+    @endsection
